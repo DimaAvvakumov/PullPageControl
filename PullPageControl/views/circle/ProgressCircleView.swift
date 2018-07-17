@@ -95,6 +95,12 @@ class ProgressCircleView: UIView {
             circleLayer.strokeEnd = toValue
             CATransaction.commit()
         }
+        
+        if progress > 0.99 {
+            startPulse()
+        } else {
+            stopPulse()
+        }
     }
     
     func startAnimating() {
@@ -114,6 +120,31 @@ class ProgressCircleView: UIView {
     
     func stopAnimating() {
         self.layer.removeAnimation(forKey: "transform.rotation")
+    }
+    
+    func startPulse() {
+        if let keys = self.layer.animationKeys() {
+            if keys.contains("transform.scale") {
+                return
+            }
+        }
+        
+        let scale = CABasicAnimation(keyPath: "transform.scale")
+        scale.beginTime = 0.0;
+        scale.duration = 0.3;
+        scale.fromValue = NSNumber(value: 1.0)
+        scale.toValue = NSNumber(value: 1.4)
+        scale.fillMode = kCAFillModeForwards
+        scale.autoreverses = true
+        scale.repeatCount = Float.infinity
+        scale.isRemovedOnCompletion = false
+        scale.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        
+        self.layer.add(scale, forKey: "transform.scale")
+    }
+    
+    func stopPulse() {
+        self.layer.removeAnimation(forKey: "transform.scale")
     }
     
 
