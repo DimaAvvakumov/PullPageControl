@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "pullPageControl"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Pull to Refresh and Infinity Scroll"
   s.homepage     = "https://github.com/DimaAvvakumov/PullPageControl.git"
   s.license      = { :type => "MIT", :file => "LICENSE" }

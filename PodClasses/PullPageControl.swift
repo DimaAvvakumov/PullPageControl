@@ -13,7 +13,7 @@ import RxCocoa
 
 // MARK: UIView
 
-protocol PullPageRefreshViewProtocol {
+public protocol PullPageRefreshViewProtocol {
     
     func beginRefreshing()
     func endRefreshing()
@@ -23,12 +23,12 @@ protocol PullPageRefreshViewProtocol {
 }
 
 // MARK: Pull Control
-class PullPageControl {
+open class PullPageControl {
     
     typealias PullPageRefreshView = PullPageRefreshViewProtocol & UIView
     
     // State
-    enum State {
+    public enum State {
         case normal(isNext:Bool)
         case refreshing
         case loadingPage
@@ -53,7 +53,7 @@ class PullPageControl {
     }
 
     // Cfg
-    struct Config {
+    public struct Config {
         // Pull To Refresh
         let refreshTriggerOffset: CGFloat = 88.0
         let refreshControlY: CGFloat = 28.0
@@ -78,25 +78,25 @@ class PullPageControl {
     var infinityWaitUserInteraction: Bool = true
     
     // Public
-    let state = BehaviorRelay<State>(value: .normal(isNext: false) )
-    var config = Config()
+    public let state = BehaviorRelay<State>(value: .normal(isNext: false) )
+    public var config = Config()
     
     // Outlets
-    let scrollView: UIScrollView
-    var refreshView: PullPageRefreshViewProtocol?
-    var infinityView: PullPageRefreshViewProtocol?
+    public let scrollView: UIScrollView
+    public var refreshView: PullPageRefreshViewProtocol?
+    public var infinityView: PullPageRefreshViewProtocol?
     
     // Events
-    let refreshEvent = PublishSubject<Bool>()
-    let nextPageEvent = PublishSubject<Bool>()
+    public let refreshEvent = PublishSubject<Bool>()
+    public let nextPageEvent = PublishSubject<Bool>()
     
     // Init
-    init(scrollView view: UIScrollView) {
+    public init(scrollView view: UIScrollView) {
         scrollView = view
     }
     
     // Methods
-    func setup() {
+    public func setup() {
         // refresh view
         if let view = refreshView as? PullPageRefreshView {
             view.translatesAutoresizingMaskIntoConstraints = false
