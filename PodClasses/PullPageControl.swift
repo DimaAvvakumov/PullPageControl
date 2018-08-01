@@ -136,8 +136,7 @@ open class PullPageControl {
             return
         }
         
-        let point = scrollView.contentOffset
-        let offset = -point.y
+        let offset = scrollContentOffsetY()
         if offset < 0 {
             return
         }
@@ -206,7 +205,7 @@ open class PullPageControl {
             return
         }
         
-        let offset = -scrollView.contentOffset.y
+        let offset = scrollContentOffsetY()
         if offset < 0 {
             return
         }
@@ -255,6 +254,13 @@ open class PullPageControl {
         }
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.beginFromCurrentState], animations: animBlock, completion: nil)
     }
-
+    
+    private func scrollContentOffsetY() -> CGFloat {
+        var inset = scrollView.contentInset.top
+        if #available(iOS 11.0, *) {
+            inset += scrollView.adjustedContentInset.top
+        }
+        return -scrollView.contentOffset.y - inset
+    }
     
 }
